@@ -108,6 +108,63 @@ void List<T>::pop_back() {
     size_--;
 }
 
+template <typename T>
+typename List<T>::ListIterator List<T>::begin() {
+    iterator iter(head_);
+    return iter;
+}
+
+template <typename T>
+typename List<T>::ListIterator List<T>::end() {
+    iterator iter(tail_);
+    return iter;
+}
+
+
+template <typename T>
+void List<T>::reverse() {
+    iterator start(head_);
+    iterator finish(tail_);
+    for (size_type x = 0; x < size_/2; x++) {
+        if (x != 0) {
+            ++start;
+            ++finish;
+        }
+        std::swap(start.node_->value, finish.node_->value);
+    }
+}
+
+template <typename T>
+void List<T>::splice(iterator pos, List& other) {	 // NB! ЗАМЕНИТЬ НА CONST
+    while (true) {
+        other.push_back(pos.get_value());
+        if (pos.node_->next == nullptr) {
+            break;
+        }
+        ++pos;
+    }
+}
+
+// template <typename T>
+// void List<T>::unique() {
+
+// }
+
+template <typename T>
+void List<T>::erase(iterator pos) {
+    if (pos.node_->prev != nullptr) {
+        pos.node_->prev->next = pos.node_->next;
+    } else {
+        head_ = pos.node_->next;
+    }
+    if (pos.node_->next != nullptr) {
+        pos.node_->next->prev = pos.node_->prev;
+
+    } else {
+        tail_ = pos.node_->prev;
+    }
+    size_--;
+}
 
 
 template class List<int>;
@@ -117,20 +174,22 @@ template class List<int>;
 //        ИТЕРАТОР
 ////////////////////////////
 
-template <typename T>
-typename List<T>::ListIterator List<T>::ListIterator::operator++() {
+template <class T>
+typename List<T>::ListIterator& List<T>::ListIterator::operator++() {
     if (node_->next == nullptr) {
-        throw std::out_of_range("iter too much")
+        throw std::out_of_range("iter too much");
     } 
-    return node_->next;
+    node_ = node_->next;
+    return *this;
 }
 
-template <typename T>
-typename List<T>::ListIterator List<T>::ListIterator::operator--() {
+template <class T>
+typename List<T>::ListIterator& List<T>::ListIterator::operator--() {
     if (node_->prev == nullptr) {
-        throw std::out_of_range("iter too much")
+        throw std::out_of_range("iter too much");
     } 
-    return node_->prev;
+    node_ = node_->prev;
+    return *this;
 }
 
 template <typename T>

@@ -7,11 +7,19 @@
 
 template <class T>
 class List {
+
     public:
         using value_type = T;
         using reference = T&;
         using const_reference = const T &;
         using size_type = size_t;
+    protected:
+        struct Node {
+            struct Node *next = nullptr;
+            struct Node *prev = nullptr;
+            value_type value = 0;
+        };
+    public:
         class ListIterator {
             friend class List<T>;
             private:
@@ -24,13 +32,6 @@ class List {
                 const_reference get_value();
         };
         using iterator = ListIterator;
-    protected:
-        struct Node {
-            struct Node *next = nullptr;
-            struct Node *prev = nullptr;
-            value_type value = 0;
-        };
-
     private:
         size_t size_;
         Node *head_;
@@ -48,6 +49,7 @@ class List {
         const_reference front();
         const_reference back();
         iterator begin();
+        iterator end();
         // LIST CAPACITY
         size_type size();
         bool empty();
@@ -56,6 +58,9 @@ class List {
         void push_front(const_reference value);
         void pop_front();
         void pop_back();
+        void reverse();
+        void erase(iterator pos);
+        void splice(iterator i, List& spliced);
 };
 
 #endif
