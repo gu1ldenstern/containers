@@ -43,7 +43,24 @@ const T & List<T>::back()	{
     return tail_->value;
 }
 
+
 // LIST MODIFIERS
+
+template <typename T>
+void List<T>::clear() {
+    while (this->size() != 0) {
+        this->pop_back();
+    }
+}
+
+template <typename T>
+void List<T>::swap(List& other)	{
+    std::swap(this->head_, other.head_);
+    std::swap(this->tail_, other.tail_);
+    std::swap(this->size_, other.size_);
+}
+
+
 template <typename T>
 void List<T>::push_back(const_reference value) {
     Node *node = new Node();

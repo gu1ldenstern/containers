@@ -53,6 +53,8 @@ class List {
         size_type size();
         bool empty();
         // LIST MODIFIERS
+        void clear();
+        void swap(List& other);
         void push_back(const_reference value);
         void push_front(const_reference value);
         void pop_front();
