@@ -36,7 +36,6 @@ class List {
         size_t size_;
         Node *head_;
         Node *tail_;
-
     public:
         List() : size_(0), head_(nullptr), tail_(nullptr) {};
         // list(size_type n);
@@ -59,6 +58,9 @@ class List {
         void pop_front();
         void pop_back();
         void reverse();
+        void unique();
+        void merge(List& other);
+        iterator insert(iterator pos, const_reference value);
         void erase(iterator pos);
         void splice(iterator i, List& spliced);
 };

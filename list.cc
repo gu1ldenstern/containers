@@ -145,13 +145,44 @@ void List<T>::splice(iterator pos, List& other) {	 // NB! ЗАМЕНИТЬ НА 
     }
 }
 
-// template <typename T>
-// void List<T>::unique() {
-
-// }
+template <typename T>
+void List<T>::unique() {
+    if (!this->empty()) {
+        iterator iter = this->begin();
+        while (iter.node_->next != nullptr) {
+            iterator possibly_delete(iter.node_);
+            ++iter;
+            if (possibly_delete.node_->value == iter.node_->value) {
+                this->erase(possibly_delete);
+            }
+        }
+    } 
+}
 
 template <typename T>
-void List<T>::erase(iterator pos) {
+void List<T>:: merge(List& other) {
+    iterator first(this->head_);
+    while (first.node_->next != nullptr) {
+        if (other.size() == 0) {
+            break;
+        }
+        if (other.front() <= first.node_->value) {
+            this->insert(first, other.front());
+            other.pop_front();
+        } else {
+            if (first.node_->next != nullptr) {
+                ++first;
+            }
+        }
+    }
+    while (other.size() != 0) {
+        this->push_back(other.front());
+        other.pop_front();
+    }
+}
+
+template <typename T>
+void List<T>::erase(ListIterator pos) {
     if (pos.node_->prev != nullptr) {
         pos.node_->prev->next = pos.node_->next;
     } else {
@@ -166,6 +197,22 @@ void List<T>::erase(iterator pos) {
     size_--;
 }
 
+template <typename T>
+typename List<T>::ListIterator List<T>::insert(ListIterator pos, const T & value) {
+    Node* node = new Node();
+    node->value = value;
+    node->prev = pos.node_->prev;
+    node->next = pos.node_;
+    if (pos.node_->prev != nullptr){
+        pos.node_->prev->next = node;
+    } else {
+        head_ = node;
+    }
+    pos.node_->prev = node;
+    iterator current(node);
+    size_++;
+    return current;
+}
 
 template class List<int>;
 

@@ -12,6 +12,9 @@ void print_list(List<int> v) {
    for (int i = 0; i<size-1; i++) {
       std::cout << iter.get_value() << ' ';
       ++iter;
+      // if (i == 1) {
+      //    break;
+      // } 
    }
    std::cout << iter.get_value() << '\n';
 }
@@ -34,13 +37,27 @@ int main() {
    v.push_back(1);
    v.push_back(2);
    v.push_back(3);
-   v.push_back(4);
+   v.push_back(5);
    print_list(v);
-   List<int>::iterator iter = v.begin();
-   ++iter;
-   ++iter;
-   ++iter;
-   v.erase(iter);
+   List<int> c;
+   c.push_back(1);
+   c.push_back(1);
+   c.push_back(1);
+   c.push_back(5);
+   c.push_back(6);
+   c.push_back(7);
+   c.push_back(345);
+   // List<int>::iterator iter = v.end();
+   // ++iter;
+   // List<int>::iterator current = v.insert(iter, 5);
+   // ++iter;
+   // ++iter;
+   // ++iter;
+   // v.erase(iter);
    // std::cout << '\n' << v.front() << '\n' << v.back();
+   // v.unique();
+   // std::cout << current.get_value() << '\n';
+   // std::cout << '\n' << v.front() << ' ' << v.back() << ' ' << v.size();
+   v.merge(c);
    print_list(v);
 }
