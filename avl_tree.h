@@ -23,11 +23,26 @@ class AVL_tree {
         };
         struct Node* root = nullptr;
     public:
+        class TreeIterator {
+            friend class AVL_tree<T>;
+            private:
+                typename AVL_tree<T>::Node* node_;
+            public:
+                TreeIterator(){};
+                TreeIterator(typename AVL_tree<T>::Node *node):node_(node){};
+                TreeIterator& operator++();
+                TreeIterator& operator--();
+                const_reference get_key();
+                const_reference get_value();
+        };
+        using iterator = TreeIterator;
         AVL_tree() : root(nullptr) {};
         void dummy();
         void print_tree();
         void insert(value_type key, value_type value);
         void remove(value_type key);
+        iterator begin();
+        iterator end();
 
         // почему друзья записаны так -- https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Making_New_Friends
         // грубо говоря, есть другие варианты, но они выглядят стремно
@@ -117,13 +132,20 @@ class AVL_tree {
                 Node* right = p->right_;
                 Node* left = p->left_;
                 Node* prev = p->prev_;
+                delete p;
                 if (!right) {
                     return left;
                 }
                 Node* change = find_min(right);
                 change->prev_ = prev;
                 change->right_ = remove_min(right);
+                if (change->right_) {
+                    change->right_->prev_ = change;
+                }
                 change->left_ = left;
+                if (change->left_) {
+                    change->left_->prev_ = change;
+                }
                 return balance(change);
             }
             return balance(p);
@@ -131,6 +153,11 @@ class AVL_tree {
         friend Node* find_min(Node* p) {
             return p->left_?find_min(p->left_):p;
         }
+
+        friend Node* find_max(Node* p) {
+            return p->right_?find_max(p->right_):p;
+        }
+
         friend Node* remove_min(Node* p) {
             if (!p->left_) {
                 return p->right_;
