@@ -44,6 +44,10 @@ class AVL_tree {
         iterator begin();
         iterator end();
 
+        /////////////////////////////////////////
+        //        ОПЕРАЦИИ НАД НОДАМИ
+        /////////////////////////////////////////
+
         // почему друзья записаны так -- https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Making_New_Friends
         // грубо говоря, есть другие варианты, но они выглядят стремно
         friend int get_height(Node* current) {

@@ -1,7 +1,8 @@
 #include <iostream>
 // #include "list.h"
 // #include "vector.h"
-#include "avl_tree.h"
+// #include "avl_tree.h"
+#include "stack.h"
 
 using std::cin;
 using std::cout;
@@ -22,28 +23,31 @@ using std::endl;
 
 
 int main() {
-   AVL_tree<int> tree;
-   tree.insert(5, 0);
-   tree.insert(1, 0);
-   tree.insert(2, 0);
-   tree.insert(6, 0);
-   tree.insert(3, 0);
-   tree.insert(9, 0);
-   tree.insert(8, 0);
-   tree.remove(6);
-   tree.print_tree();
-   AVL_tree<int>::iterator iter = tree.begin();
-   std::cout << iter.get_key() << ' ';
-   ++iter;
-   std::cout << iter.get_key()<< ' ';
-   ++iter;
-   std::cout << iter.get_key()<< ' ';
-   ++iter;
-   std::cout << iter.get_key()<< ' ';
-   ++iter;
-   std::cout << iter.get_key()<< ' ';
-   ++iter;
-   std::cout << iter.get_key()<< ' ';
+   Stack<int> example;
+   example.push(5);
+   std::cout << example.top();
+   // AVL_tree<int> tree;
+   // tree.insert(5, 0);
+   // tree.insert(1, 0);
+   // tree.insert(2, 0);
+   // tree.insert(6, 0);
+   // tree.insert(3, 0);
+   // tree.insert(9, 0);
+   // tree.insert(8, 0);
+   // tree.remove(6);
+   // tree.print_tree();
+   // AVL_tree<int>::iterator iter = tree.begin();
+   // std::cout << iter.get_key() << ' ';
+   // ++iter;
+   // std::cout << iter.get_key()<< ' ';
+   // ++iter;
+   // std::cout << iter.get_key()<< ' ';
+   // ++iter;
+   // std::cout << iter.get_key()<< ' ';
+   // ++iter;
+   // std::cout << iter.get_key()<< ' ';
+   // ++iter;
+   // std::cout << iter.get_key()<< ' ';
    // std::cout << get_height(tree.root_);
    //  Vector<int> v = {1, 2, 3, 4, 5};
    //  v.push_back(6);
